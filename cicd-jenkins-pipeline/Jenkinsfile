@@ -1,0 +1,49 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE = "mirjamaluddin/nginx-demo"
+        DOCKER_TAG = "latest"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/mirjamaluddin-Devops-Cloud/devops-cloud-projects.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh 'docker build -t $DOCKER_IMAGE:$DOCKER_TAG ./docker-nginx'
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh 'echo $PASSWORD | docker login -u $USERNAME --password-stdin'
+                    sh 'docker push $DOCKER_IMAGE:$DOCKER_TAG'
+                }
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh 'kubectl apply -f kubernetes-deployments/nginx-deployment.yml'
+                sh 'kubectl apply -f kubernetes-deployments/nginx-service.yml'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Deployment Successful! 🚀'
+        }
+        failure {
+            echo 'Deployment Failed! ❌'
+        }
+    }
+}
