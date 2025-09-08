@@ -1,0 +1,30 @@
+---
+- name: Configure Web Servers
+  hosts: webservers
+  become: yes
+
+  vars:
+    http_port: 80
+    max_clients: 200
+
+  tasks:
+    - name: Update apt packages
+      apt:
+        update_cache: yes
+
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Start Nginx service
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Deploy index.html
+      copy:
+        content: "<h1>Welcome to DevOps & Cloud Setup!</h1>"
+        dest: /var/www/html/index.html
+        mode: '0644'
