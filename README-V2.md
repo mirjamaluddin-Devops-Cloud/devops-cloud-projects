@@ -40,13 +40,14 @@ devops-cloud-projects/
 
 ## 📸 Project Snapshots  
 
-> (Add screenshots later — e.g. Terraform plan output, Jenkins pipeline success, Grafana dashboard, Kubernetes pods running)
+### 1. Terraform Apply Output  
+![Terraform Apply](media/terraform-output.png)  
 
-- ✅ **Terraform Apply Example**  
-- ✅ **Jenkins Pipeline Stages**  
-- ✅ **Grafana Dashboard (Nginx Monitoring)**  
+### 2. Jenkins Pipeline (CI/CD)  
+![Jenkins Pipeline](media/jenkins-pipeline.png)  
 
----
+### 3. Grafana Dashboard (Monitoring Nginx Pods)  
+![Grafana Dashboard](media/grafana-dashboard.png)  
 
 ## 📬 Contact  
 
