@@ -49,6 +49,8 @@ devops-cloud-projects/
 ### 3. Grafana Dashboard (Monitoring Nginx Pods)  
 ![Grafana Dashboard](media/grafana-dashboard.png)  
 
+---
+
 ## 📬 Contact  
 
 **Mir Jamaluddin**  
